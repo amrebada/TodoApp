@@ -29,7 +29,7 @@ class Todo {
       throw ApiError(ErrorTypes.NOT_FOUND, " user not found");
     }
     let _todo = await Todos.findById(todoID);
-    if (_todo.userId !== user.id || user.role !== 1) {
+    if (_todo.userId !== user.id && user.role !== 1) {
       throw ApiError(ErrorTypes.FORBIDDEN, " Cannot edit this todo");
     }
     _todo.todo = todo;
@@ -42,7 +42,8 @@ class Todo {
       throw ApiError(ErrorTypes.NOT_FOUND, " user not found");
     }
     let _todo = await Todos.findById(todoID);
-    if (_todo.userId !== user.id || user.role !== 1) {
+
+    if (_todo.userId != user.id && user.role !== 1) {
       throw ApiError(ErrorTypes.FORBIDDEN, " Cannot edit this todo");
     }
     _todo.status = _todo.status === "doing" ? "done" : "doing";
@@ -67,7 +68,7 @@ class Todo {
       throw ApiError(ErrorTypes.NOT_FOUND, " user not found");
     }
     let _todo = await Todos.findById(todoID);
-    if (_todo.userId !== user.id || user.role !== 1) {
+    if (_todo.userId !== user.id && user.role !== 1) {
       throw ApiError(ErrorTypes.FORBIDDEN, " Cannot get this todo");
     }
 
@@ -79,9 +80,6 @@ class Todo {
       throw ApiError(ErrorTypes.NOT_FOUND, " user not found");
     }
     let _todo = await Todos.find({ userId: user.id });
-    if (_todo.userId !== user.id || user.role !== 1) {
-      throw ApiError(ErrorTypes.FORBIDDEN, " Cannot get this todo");
-    }
 
     return _todo;
   }

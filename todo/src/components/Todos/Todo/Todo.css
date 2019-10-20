@@ -1,0 +1,13 @@
+.container {
+  width: 50%;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 5px 5px 20px #ccc;
+  margin-top: 25px;
+  cursor: pointer;
+}
+
+.done {
+  text-decoration-line: line-through;
+  color: #ccc;
+}
