@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  width: 30%;
+  box-shadow: 5px 5px 15px #ccc;
+  border-radius: 1.9rem;
+  background: white;
+}
+
+.header {
+  font-size: 1.9rem;
+  text-align: center;
+  padding: 10px;
+}
+.image {
+  width: 100%;
+}
+.body {
+  padding: 20px;
+}
+.submit {
+  width: 100%;
+  text-align: center;
+}

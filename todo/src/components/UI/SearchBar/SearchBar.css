@@ -1,0 +1,42 @@
+.input {
+  background: #4c6475;
+  border: 0px;
+  border-radius: 5px;
+  padding: 5px;
+  line-height: 1.5rem;
+  color: white;
+  width: calc(100% - 10px);
+}
+
+.input::placeholder {
+  color: rgb(190, 190, 190);
+}
+
+.input:focus {
+  outline: 0px;
+}
+
+.searchArea {
+  padding: 20px 5px;
+  position: relative;
+  flex: 1;
+}
+
+.icon {
+  position: absolute;
+  right: 20px;
+  top: 25px;
+}
+.suggestions {
+  background: white;
+  color: black;
+  position: absolute !important;
+  width: calc(100% - 20px);
+  height: 200px;
+  overflow: auto;
+
+  z-index: 1000;
+}
+.sug {
+  width: 100%;
+}

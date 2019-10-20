@@ -7,6 +7,13 @@ const config = require("./config.json");
 const authFilter = require("./src/filters/auth.filter");
 const routes = require("./src/routes/index");
 
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: "*"
+  })
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(authFilter);
