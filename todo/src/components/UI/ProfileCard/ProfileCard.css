@@ -1,0 +1,33 @@
+.container {
+  padding: 20px 10px;
+  border-bottom: 1px solid rgba(204, 204, 204, 0.644);
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.active {
+  color: white;
+  background: rgb(143, 143, 143);
+}
+.container p {
+  margin-left: 40px;
+}
+.profile {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  box-shadow: 5px 5px 15px #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+}
+.active .profile {
+  box-shadow: 5px 5px 15px rgba(204, 204, 204, 0);
+  background: white;
+  color: black;
+}

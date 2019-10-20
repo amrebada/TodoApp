@@ -1,0 +1,44 @@
+.root {
+  padding: 10px 8px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+  top: 0;
+  background: #1b2d48;
+  z-index: 10;
+  flex: 1;
+  align-items: center;
+}
+
+.Applogo {
+  height: 50px;
+}
+
+.actions {
+  display: flex;
+  margin-right: 30px;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.actions p {
+  margin-right: 20px;
+}
+
+.titleName {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.logout {
+  margin-left: 10px;
+
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.logout:hover {
+  color: #ccc;
+}

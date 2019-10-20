@@ -1,0 +1,19 @@
+.container {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.178);
+}
+.body {
+  width: 40%;
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  z-index: 1001;
+  top: 20%;
+  left: 30%;
+  position: fixed;
+}

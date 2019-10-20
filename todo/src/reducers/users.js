@@ -1,3 +1,11 @@
+import { SET_USERS } from "../actions/users";
+
 export default (state = [], action) => {
-  return state;
+  switch (action.type) {
+    case SET_USERS:
+      return action.users;
+
+    default:
+      return state;
+  }
 };
