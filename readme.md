@@ -38,13 +38,16 @@ this application is restricted for **TPConnects** company only.
 
 ## run server
 
-1. enter dummy data by change directory to server and run `npm run seed`
-2. npm start
+1. change directory to server
+2. `npm install`
+3. enter dummy data by running `npm run seed`
+4. npm start
 
 ## run ReactJS
 
 1. change directory to todo
-2. run command `npm start`
+2. `npm install`
+3. run command `npm start`
 
 ## Credentials
 
