@@ -28,6 +28,18 @@ class Auth {
       });
     });
   }
+
+  async getUserByToken(token) {
+    let uid = JWT.verify(token, JWK.asKey(config.KEY));
+    if (uid && uid.id) {
+      try {
+        let user = await Users.findById(uid.id);
+        return user;
+      } catch (error) {
+        throw ApiError(ErrorTypes.NOT_FOUND, "user not found");
+      }
+    }
+  }
   async checkIfAdmin(token) {
     let admin = JWT.verify(token, JWK.asKey(config.KEY));
 

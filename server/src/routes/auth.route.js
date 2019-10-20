@@ -34,6 +34,22 @@ router.get("/user", async (req, res) => {
   }
 });
 
+router.delete("/user", async (req, res) => {
+  try {
+    const token = req.token;
+
+    const { userId } = req.body;
+    if (!userId) {
+      throw ApiError(ErrorTypes.BAD_REQUEST, "user ID not passed");
+    }
+    let users = await controller.delete(token, userId);
+
+    res.json(ApiResponse(users));
+  } catch (error) {
+    res.json(ApiResponse(null, error));
+  }
+});
+
 router.post("/user", async (req, res) => {
   try {
     const { username, password, role } = req.body;

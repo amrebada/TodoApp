@@ -25,8 +25,13 @@ router.get("/todo", async (req, res) => {
   try {
     const token = req.token;
 
-    const resp = await controller.getByUser(token);
-
+    const { userId } = req.query;
+    let resp;
+    if (userId) {
+      resp = await controller.getByUserId(token, userId);
+    } else {
+      resp = await controller.getByUser(token);
+    }
     return res.json(ApiResponse(resp));
   } catch (error) {
     res.json(ApiResponse(null, error));
