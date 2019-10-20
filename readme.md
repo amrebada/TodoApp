@@ -59,6 +59,6 @@ this application is restricted for **TPConnects** company only.
 1. No fontend Implementation for edit API
 2. Routing not implemented
 
-## whish-list
+## wish-list
 
 1. create Mobile App by React native
