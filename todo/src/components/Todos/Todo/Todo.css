@@ -1,13 +1,20 @@
 .container {
-  width: 50%;
+  width: 100%;
   padding: 30px;
   text-align: center;
   box-shadow: 5px 5px 20px #ccc;
-  margin-top: 25px;
+  margin-top: 12.5px;
+  margin-bottom: 12.5px;
   cursor: pointer;
 }
 
 .done {
   text-decoration-line: line-through;
   color: #ccc;
+}
+.row {
+  display: flex;
+  width: 50%;
+  flex-direction: row;
+  align-items: center;
 }

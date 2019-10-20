@@ -5,18 +5,18 @@ import ProfileCard from "../UI/ProfileCard/ProfileCard";
 import ColorButton from "../UI/ButtonC/ButtonC";
 
 import { connect } from "react-redux";
-import { setUsers } from "../../actions/users";
+import { setUsers, setSelectedUser } from "../../actions/users";
 
 import axios from "axios";
 import { setTodos } from "../../actions/todos";
 import Modal from "../UI/Modal/Modal";
 import TextInput from "../UI/TextInput/TextInput";
 import Checkbox from "../UI/Checkbox/Checkbox";
+import { setRole } from "../../actions/auth";
 
 const Users = props => {
   const [show, setShow] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
-  const [users, setStateUsers] = useState(props.users);
   const [userValue, setUserValue] = useState({ role: 0 });
 
   useEffect(() => {
@@ -24,13 +24,8 @@ const Users = props => {
   }, []);
 
   const selectUser = userId => {
-    setStateUsers(prev =>
-      prev.map(user =>
-        user._id === userId
-          ? { ...user, active: true }
-          : { ...user, active: false }
-      )
-    );
+    props.setSelectedUser(userId);
+
     axios
       .get(`http://localhost:4000/api/v1/todo?userId=${userId}`, {
         headers: { authorization: `Bearer ${props.auth.token}` }
@@ -43,6 +38,19 @@ const Users = props => {
       });
   };
 
+  const deleteUser = userId => {
+    axios
+      .delete(`http://localhost:4000/api/v1/user?userId=${userId}`, {
+        headers: { authorization: `Bearer ${props.auth.token}` }
+      })
+      .then(resp => {
+        console.log(resp.data);
+        if (resp.data.success) {
+          updateUsers();
+        }
+      });
+  };
+
   const updateUsers = () => {
     axios
       .get("http://localhost:4000/api/v1/user", {
@@ -51,10 +59,12 @@ const Users = props => {
       .then(resp => {
         if (resp.data.success) {
           props.setUsers(resp.data.data);
-          setStateUsers(resp.data.data);
+          // setStateUsers(resp.data.data);
+          props.setRole(1);
           setShow(true);
         } else {
           setShow(false);
+          props.setRole(0);
         }
       });
   };
@@ -84,12 +94,13 @@ const Users = props => {
       className={classes.container}
       style={show ? null : { display: "none" }}
     >
-      {users.map((user, i) => (
+      {props.users.map((user, i) => (
         <ProfileCard
           key={user._id}
           name={user.username}
           active={user.active ? true : false}
           onClick={() => selectUser(user._id)}
+          onDelete={() => deleteUser(user._id)}
         />
       ))}
 
@@ -140,7 +151,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setUsers: users => dispatch(setUsers(users)),
-    setTodos: todos => dispatch(setTodos(todos))
+    setSelectedUser: id => dispatch(setSelectedUser(id)),
+    setTodos: todos => dispatch(setTodos(todos)),
+    setRole: role => dispatch(setRole(role))
   };
 };
 

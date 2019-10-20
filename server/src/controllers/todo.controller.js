@@ -89,9 +89,6 @@ class Todo {
       throw ApiError(ErrorTypes.NOT_FOUND, " user not found");
     }
     let _todo = await Todos.find({ userId });
-    if (user.role !== 1) {
-      throw ApiError(ErrorTypes.FORBIDDEN, " Cannot get this todo");
-    }
 
     return _todo;
   }

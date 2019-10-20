@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from "../actions/auth";
+import { LOGIN, LOGOUT, SET_ROLE } from "../actions/auth";
 const getCookie = cname => {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
@@ -18,7 +18,8 @@ const getCookie = cname => {
 export default (
   state = {
     token: getCookie("token"),
-    username: getCookie("user")
+    username: getCookie("user"),
+    role: getCookie("role")
   },
   action
 ) => {
@@ -33,6 +34,11 @@ export default (
       return {
         token: action.token,
         username: action.username
+      };
+    case SET_ROLE:
+      return {
+        ...state,
+        role: action.role
       };
 
     default:

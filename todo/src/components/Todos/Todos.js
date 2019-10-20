@@ -18,11 +18,14 @@ const Todos = props => {
   useEffect(() => {
     updateTodos();
   }, []);
-  const updateTodos = () => {
+  const updateTodos = userId => {
     axios
-      .get(`http://localhost:4000/api/v1/todo`, {
-        headers: { authorization: `Bearer ${props.auth.token}` }
-      })
+      .get(
+        `http://localhost:4000/api/v1/todo${userId ? "?userId=" + userId : ""}`,
+        {
+          headers: { authorization: `Bearer ${props.auth.token}` }
+        }
+      )
       .then(resp => {
         console.log(resp.data);
         if (resp.data.success) {
@@ -53,7 +56,7 @@ const Todos = props => {
       });
   };
 
-  const handleChangeState = id => {
+  const handleChangeState = (id, userId) => {
     axios
       .patch(
         `http://localhost:4000/api/v1/todo/${id}`,
@@ -66,7 +69,25 @@ const Todos = props => {
         console.log(resp.data);
 
         if (resp.data.success) {
-          updateTodos();
+          updateTodos(userId);
+        }
+      });
+  };
+
+  const handleDeleteTodo = (id, userId) => {
+    axios
+      .delete(
+        `http://localhost:4000/api/v1/todo/${id}`,
+
+        {
+          headers: { authorization: `Bearer ${props.auth.token}` }
+        }
+      )
+      .then(resp => {
+        console.log(resp.data);
+
+        if (resp.data.success) {
+          updateTodos(userId);
         }
       });
   };
@@ -97,7 +118,12 @@ const Todos = props => {
           key={todo._id}
           todo={todo.todo}
           done={todo.status !== "doing"}
-          changeState={() => handleChangeState(todo._id)}
+          changeState={() => handleChangeState(todo._id, todo.userId)}
+          onDelete={
+            props.auth.role && props.auth.role === 1
+              ? () => handleDeleteTodo(todo._id, todo.userId)
+              : null
+          }
         />
       ))}
     </div>
