@@ -15,7 +15,9 @@ module.exports = async (req, res, next) => {
   }
   try {
     //check authentication
-    let authentication = req.headers["Authentication"];
+
+    let authentication = req.headers["authorization"];
+
     if (!authentication) {
       throw ApiError(ErrorTypes.FORBIDDEN, "Invalid authentication");
     }
@@ -27,7 +29,9 @@ module.exports = async (req, res, next) => {
     if (!token) {
       throw ApiError(ErrorTypes.FORBIDDEN, "Invalid authentication");
     }
+    req.token = token;
     const decodedUser = JWT.verify(token, JWK.asKey(config.KEY));
+
     const user = await Users.findById(decodedUser.id);
     if (!user) {
       throw ApiError(ErrorTypes.FORBIDDEN, "Invalid authentication");

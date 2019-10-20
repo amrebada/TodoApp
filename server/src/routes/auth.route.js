@@ -15,9 +15,42 @@ router.post("/login", async (req, res) => {
     }
 
     const token = await controller.login(username, password);
-    console.log(token);
 
     return res.json(ApiResponse(token));
+  } catch (error) {
+    res.json(ApiResponse(null, error));
+  }
+});
+
+router.get("/user", async (req, res) => {
+  try {
+    const token = req.token;
+
+    let users = await controller.getAllUsers(token);
+
+    res.json(ApiResponse(users));
+  } catch (error) {
+    res.json(ApiResponse(null, error));
+  }
+});
+
+router.post("/user", async (req, res) => {
+  try {
+    const { username, password, role } = req.body;
+    const token = req.token;
+
+    if (!username && !password) {
+      throw ApiError(ErrorTypes.BAD_REQUEST, " username or password is empty");
+    }
+
+    let user = await controller.create(
+      token,
+      username,
+      password,
+      role ? role : 0
+    );
+
+    res.json(ApiResponse(user));
   } catch (error) {
     res.json(ApiResponse(null, error));
   }

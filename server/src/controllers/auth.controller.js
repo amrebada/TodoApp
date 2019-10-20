@@ -42,5 +42,38 @@ class Auth {
       return false;
     }
   }
+
+  async create(token, username, password, role) {
+    if (!(await this.checkIfAdmin(token))) {
+      throw ApiError(ErrorTypes.FORBIDDEN, "Not Authorized to create user");
+    }
+
+    let hash = await bcrypt.hash(password, 10);
+    console.log(hash);
+
+    let user = new Users({
+      username,
+      password: hash,
+      role
+    });
+
+    return await user.save();
+  }
+
+  async delete(token, userId) {
+    if (!(await this.checkIfAdmin(token))) {
+      throw ApiError(ErrorTypes.FORBIDDEN, "Not Authorized to create user");
+    }
+
+    return await Users.findByIdAndDelete(userId);
+  }
+
+  async getAllUsers(token) {
+    if (!(await this.checkIfAdmin(token))) {
+      throw ApiError(ErrorTypes.FORBIDDEN, "Not Authorized to create user");
+    }
+
+    return await Users.find();
+  }
 }
 module.exports = new Auth();
