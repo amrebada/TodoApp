@@ -1,7 +1,7 @@
 # Todo App
 
 it is an Full application for todo backend in (Nodejs , Mongodb) and frontend in (ReactJS).
-this application is restricted for TPConnects company only.
+this application is restricted for **TPConnects** company only.
 
 ## API specs
 
@@ -28,4 +28,32 @@ this application is restricted for TPConnects company only.
 | 6    | /api/v1/todo/:id        | edit todo message by id | PATCH  | id, todo | authorization : Bearer < token > |
 | 7    | /api/v1/todo/:id/status | change status by id     | PATCH  | id       | authorization : Bearer < token > |
 
+## requirement
+
+1. NodeJS 10+
+2. MongoDB
+3. NPM / Yarn
+
 ## run server
+
+1. enter dummy data by change directory to server and run `npm run seed`
+2. npm start
+
+## run ReactJS
+
+1. change directory to todo
+2. run command `npm start`
+
+## Credentials
+
+- username : admin
+- password : admin
+
+## bugs to fix
+
+1. No fontend Implementation for edit API
+2. Routing not implemented
+
+## whish-list
+
+1. create Mobile App by React native
