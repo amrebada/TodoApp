@@ -100,7 +100,9 @@ const Users = props => {
           name={user.username}
           active={user.active ? true : false}
           onClick={() => selectUser(user._id)}
-          onDelete={() => deleteUser(user._id)}
+          onDelete={
+            user.username !== "admin" ? () => deleteUser(user._id) : null
+          }
         />
       ))}
 

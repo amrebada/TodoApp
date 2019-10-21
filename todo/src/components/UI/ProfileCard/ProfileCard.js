@@ -12,13 +12,17 @@ const ProfileCard = props => {
     <div className={containerClass} onClick={props.onClick}>
       <div className={classes.profile}>{props.name[0]}</div>
       <p>{props.name}</p>
-      <IconButton
-        color="secondary"
-        onClick={props.onDelete}
-        style={{ display: "inline-block" }}
-      >
-        <DeleteOutline />
-      </IconButton>
+      {props.onDelete !== null ? (
+        <IconButton
+          color="secondary"
+          onClick={props.onDelete}
+          style={{ display: "inline-block" }}
+        >
+          <DeleteOutline />
+        </IconButton>
+      ) : (
+        <p></p>
+      )}
     </div>
   );
 };
