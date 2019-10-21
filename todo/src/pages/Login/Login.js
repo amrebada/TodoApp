@@ -52,6 +52,8 @@ const Login = props => {
               setCookie("token", resp.data.data.token, 1);
               setCookie("username", userValue.user, 1);
               props.login(resp.data.data.token, userValue.user);
+            } else {
+              alert(resp.data.error.message);
             }
           }
         });
