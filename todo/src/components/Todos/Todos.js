@@ -14,6 +14,8 @@ import { setTodos } from "../../actions/todos";
 
 const Todos = props => {
   const [showCreate, setShowCreate] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [editValue, setEditValue] = useState({});
   const [todoValue, setTodoValue] = useState("");
   useEffect(() => {
     updateTodos();
@@ -91,6 +93,30 @@ const Todos = props => {
         }
       });
   };
+
+  const showEditModal = (id, todo, userId) => {
+    setEditValue({ id, todo, userId });
+    setShowEdit(true);
+  };
+
+  const handleEdit = () => {
+    axios
+      .patch(
+        `http://localhost:4000/api/v1/todo/${editValue.id}`,
+        { todo: editValue.todo },
+        {
+          headers: { authorization: `Bearer ${props.auth.token}` }
+        }
+      )
+      .then(resp => {
+        setShowEdit(false);
+        if (resp.data.success) {
+          updateTodos(editValue.userId);
+        } else {
+          alert(resp.data.error.message);
+        }
+      });
+  };
   return (
     <div className={classes.container}>
       <div className={classes.create}>
@@ -113,6 +139,23 @@ const Todos = props => {
           <ColorButton onClick={handleCreate}> create</ColorButton>
         </Modal>
       )}
+
+      {showEdit && (
+        <Modal close={() => setShowEdit(false)}>
+          <h2>Edit Todo</h2>
+          <TextInput
+            label="Todo"
+            onChange={evt => {
+              const t = evt.target.value;
+              setEditValue(prev => ({ ...prev, todo: t }));
+            }}
+            value={editValue.todo}
+            onLeave={() => {}}
+          />
+
+          <ColorButton onClick={handleEdit}> Edit</ColorButton>
+        </Modal>
+      )}
       {props.todos.map(todo => (
         <Todo
           key={todo._id}
@@ -124,6 +167,7 @@ const Todos = props => {
               ? () => handleDeleteTodo(todo._id, todo.userId)
               : null
           }
+          onEdit={() => showEditModal(todo._id, todo.todo, todo.userId)}
         />
       ))}
     </div>

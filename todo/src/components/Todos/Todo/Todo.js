@@ -2,7 +2,7 @@ import React from "react";
 
 import classes from "./Todo.css";
 import { IconButton } from "@material-ui/core";
-import { DeleteOutline } from "@material-ui/icons";
+import { EditOutlined, DeleteOutline } from "@material-ui/icons";
 
 const Todo = props => {
   const todoClass = props.done
@@ -20,6 +20,15 @@ const Todo = props => {
           style={{ display: "inline-block" }}
         >
           <DeleteOutline />
+        </IconButton>
+      )}
+      {props.onEdit !== null && (
+        <IconButton
+          color="primary"
+          onClick={props.onEdit}
+          style={{ display: "inline-block" }}
+        >
+          <EditOutlined />
         </IconButton>
       )}
     </div>
