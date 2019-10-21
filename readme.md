@@ -56,8 +56,8 @@ this application is restricted for **TPConnects** company only.
 
 ## bugs to fix
 
-1. No fontend Implementation for edit API
-2. Routing not implemented
+1. Routing not implemented
+2. Not responsive with mobile
 
 ## wish-list
 
